@@ -1,0 +1,21 @@
+IRT Command Language (ICL)
+http://www.b-a-h.com/software/irt/icl/
+
+This is the Linux distribution of ICL. The contents of this
+distribution are:
+
+1. iclsh - ICL application.
+
+2. icl_manual.pdf - Program manual in PDF format. The ICL home page
+contains a version of the manual in HTML format.
+
+3. release_notes.txt - Release notes for the current and previous
+versions of ICL.
+
+4. examples - This directory contains all files used in the examples
+presented in the manual. Included in this directory is the file
+epdirm.tcl which contains the source code for many ICL commands.
+
+The manual explains how to install and use the software. The ICL home
+page (http://www.b-a-h.com/software/irt/icl/) contains the latest releases
+of the software and the manual.

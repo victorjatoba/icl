@@ -1,0 +1,308 @@
+IRT Command Language (ICL)
+Version 0.020301
+
+Feb 28, 2002 23:40
+
+Command file mondat5.tcl
+----------------------------------------------------------------------
+#
+# mondat5.tcl
+#
+# Example data from Chapters 4 and 6 Kolen and 
+# Brennan (1995)
+# Estimate item parameters for Form Y and Form X
+# items while at the same time estimating
+# the mean and s.d. of the latent variable distribution
+# of the group that took Form X (Group 2).
+
+# Write output to log file mondat5.log
+output -log_file mondat5.log
+
+# 24 unique items on each of two forms and
+# 12 common items for a total of 60
+# items. Two groups specified
+# for multiple group estimation.
+# The -unique_points option allows different
+# discrete latent distribution points to be
+# used for the different group. This allows
+# the mean and standard deviation of
+# group 2 to be estimated.
+allocate_items_dist 60 -num_groups 2 -unique_points
+
+# Read examinee item responses for Form Y from
+# file mondaty.dat and item responses for Form X
+# from file mondatx.dat using read_examinees_missing
+# command.
+# Each record contains the responses to 
+# items in columns 1-36. The responses
+# to the 12 common items on each form are in
+# columns 3, 6, 9, ..., 36, and the responses
+# to the 24 unique items on each form are in
+# the other columns (1, 2, 4, 5, ..., 35).
+
+# Item numbers are assigned such that the first 24
+# items are the unique items on Form Y, 
+# the second 12 items are common items,
+# and the last 24 items are unique items on
+# Form X. 
+
+# Item numbers for Form Y in the order in which
+# they are read from file mondaty.dat. Forms
+# are not read from the input record since the examinees
+# who take each form are read from separate files.
+# In this case integers need to be used as indices for
+# forms. The index of Form Y is 1.
+set items(1) [list 1 2 25 3 4 26 5 6 27 7 8 28 \
+    9 10 29 11 12 30 13 14 31 15 16 32 \
+    17 18 33 19 20 34 21 22 35 23 24 36]
+
+# Item numbers for Form X in the order in which
+# they are read from file mondatx.dat. Forms
+# are not read from the input record since the examinees
+# who take each form are read from separate files.
+# In this case integers need to be used as indices for
+# forms. The index of Form X is 2.
+set items(2) [list 37 38 25 39 40 26 41 42 27 43 44 28 \
+    45 46 29 47 48 30 49 50 31 51 52 32 \
+    53 54 33 55 56 34 57 58 35 59 60 36]
+
+# Item responses are in columns 1-36 of input record
+# for both forms.
+set respFmt(1) 36i1
+set respFmt(2) 36i1
+
+# Read Form Y data (group 1)
+# The second argument being 1 indicates all examinees
+# read took the form associated with index 1 (Form Y).
+# The fifth argument being 1 indicates all examinees
+# are in group 1.
+read_examinees_missing mondaty.dat 1 items respFmt 1
+
+# Read Form X data (group 2)
+# The second argument being 2 indicates all examinees
+# read took the form associated with index 2 (Form X).
+# The fifth argument being 2 indicates all examinees
+# are in group 2.
+read_examinees_missing mondatx.dat 2 items respFmt 2
+
+# Compute starting values for item parameter estimates
+starting_values_dichotomous
+
+# Perform EM iterations for computing item parameter estimates
+# and mean and s.d. of latent variable distribution for
+# group 2. 
+EM_steps -estim_dist_mean_sd
+
+# Print item parameter estimates and discrete latent
+# variable distributions, and moments of
+# latent variable distributions.
+print -item_param -latent_dist -latent_dist_moments
+
+# end of run
+release_items_dist
+----------------------------------------------------------------------
+
+Number of items: 60
+Number of latent variable points: 40
+Number of examinee groups: 2
+
+Default prior for a-parameters:
+ beta  a: 1.750   b: 3.000   lower limit: 0.000    upper limit: 3.000  
+Default prior for b-parameters:
+ beta  a: 1.010   b: 1.010   lower limit: -6.000   upper limit: 6.000  
+Default prior for c-parameters:
+ beta  a: 3.500   b: 4.000   lower limit: 0.000    upper limit: 0.500  
+
+Read 1638 examinee records from file mondaty.dat
+Read 1655 examinee records from file mondatx.dat
+
+EM iterations
+(iteration: parameter criterion, mean criterion, sd criterion, marginal posterior mode)
+    1: 0.325684  0.307720  0.085317  -67330.9426
+    2: 0.121390  0.022953  0.013473  -67308.9803
+    3: 0.069812  0.014435  0.015063  -67302.3718
+    4: 0.041066  0.010214  0.012612  -67299.7890
+    5: 0.023979  0.007613  0.010576  -67298.4860
+    6: 0.013849  0.005964  0.009086  -67297.6683
+    7: 0.009451  0.004884  0.007983  -67297.0721
+    8: 0.008185  0.004146  0.007137  -67296.5982
+    9: 0.007235  0.003621  0.006464  -67296.2041
+   10: 0.006493  0.003229  0.005911  -67295.8689
+   11: 0.005892  0.002923  0.005441  -67295.5807
+   12: 0.005389  0.002674  0.005033  -67295.3316
+   13: 0.004956  0.002465  0.004670  -67295.1158
+   14: 0.004576  0.002283  0.004343  -67294.9284
+   15: 0.004236  0.002122  0.004046  -67294.7658
+   16: 0.003930  0.001976  0.003772  -67294.6245
+   17: 0.003651  0.001843  0.003520  -67294.5018
+   18: 0.003396  0.001721  0.003286  -67294.3952
+   19: 0.003160  0.001607  0.003069  -67294.3025
+   20: 0.002942  0.001502  0.002866  -67294.2220
+   21: 0.002740  0.001404  0.002677  -67294.1521
+   22: 0.002553  0.001312  0.002500  -67294.0913
+   23: 0.002379  0.001226  0.002335  -67294.0385
+   24: 0.002217  0.001146  0.002181  -67293.9926
+   25: 0.002040  0.001071  0.002037  -67293.9527
+   26: 0.001927  0.001001  0.001901  -67293.9180
+   27: 0.001798  0.000935  0.001776  -67293.8878
+   28: 0.001677  0.000874  0.001658  -67293.8616
+   29: 0.001563  0.000817  0.001548  -67293.8388
+   30: 0.001457  0.000764  0.001445  -67293.8190
+   31: 0.001359  0.000714  0.001349  -67293.8018
+   32: 0.001267  0.000667  0.001259  -67293.7868
+   33: 0.001181  0.000623  0.001175  -67293.7738
+   34: 0.001101  0.000582  0.001096  -67293.7625
+   35: 0.001027  0.000544  0.001023  -67293.7526
+   36: 0.000957  0.000508  0.000955  -67293.7440
+
+Item Parameter Estimates
+(a, b, c for 3PL, 2PL, 1PL; a, b1, b2, ... for GPCM, PCM)
+1	0.904065	-1.342600	0.209782
+2	0.472086	-0.365138	0.121636
+3	0.573082	-0.776638	0.177935
+4	0.674595	-1.204559	0.310948
+5	1.341454	0.127767	0.317220
+6	0.498942	0.447334	0.325796
+7	0.908865	-0.344550	0.175079
+8	1.072157	-0.776767	0.104713
+9	0.897653	0.048058	0.155941
+10	0.762528	-0.270404	0.099967
+11	0.883926	0.580379	0.242801
+12	0.654135	0.940711	0.253342
+13	1.064732	-0.114612	0.195305
+14	0.881212	0.408263	0.159102
+15	0.823425	-0.079773	0.144293
+16	1.395526	0.531817	0.258702
+17	1.317010	0.631790	0.269624
+18	1.095121	0.404573	0.195341
+19	1.350874	1.092516	0.238634
+20	1.084274	0.692115	0.118706
+21	1.207214	1.329384	0.192204
+22	1.109889	0.896887	0.109516
+23	1.381480	1.716702	0.103132
+24	1.296218	1.904260	0.082859
+25	0.450195	-1.103938	0.233453
+26	0.607664	-1.061523	0.293607
+27	0.654993	-0.597720	0.118159
+28	0.608414	-0.415396	0.087000
+29	1.153304	0.567131	0.318498
+30	0.846807	-0.214362	0.036832
+31	0.272671	2.192607	0.129640
+32	1.567267	0.604057	0.247199
+33	1.547175	0.963907	0.197080
+34	0.639390	1.838167	0.074147
+35	1.269842	1.075187	0.068386
+36	1.132177	1.867853	0.115002
+37	0.509168	-2.300033	0.214556
+38	0.771774	-0.933231	0.123109
+39	1.462344	0.064269	0.288840
+40	0.993275	-0.537367	0.297272
+41	0.908665	0.079528	0.343232
+42	1.168415	-0.514173	0.252219
+43	0.911395	0.600598	0.367448
+44	0.970805	0.311458	0.248061
+45	1.243030	0.002410	0.262458
+46	1.070866	0.383164	0.166861
+47	0.926583	0.204012	0.262102
+48	0.894838	0.111030	0.239211
+49	0.638914	-0.034594	0.126210
+50	1.106195	0.546097	0.215084
+51	0.880720	0.661729	0.245532
+52	1.109415	0.153550	0.065874
+53	0.485861	0.989449	0.141474
+54	0.902095	0.665986	0.089723
+55	1.417103	1.092786	0.160834
+56	0.972486	1.126737	0.144983
+57	1.214783	1.492747	0.245017
+58	0.888044	1.283014	0.089996
+59	0.431652	3.532102	0.124595
+60	0.874993	2.797930	0.108361
+
+Discrete Latent Variable Distribution for Group 1
+-4.000000	2.745344e-05
+-3.794872	6.106663e-05
+-3.589744	1.302378e-04
+-3.384615	2.663153e-04
+-3.179487	5.221329e-04
+-2.974359	9.815038e-04
+-2.769231	1.769004e-03
+-2.564103	3.056973e-03
+-2.358974	5.065011e-03
+-2.153846	8.046278e-03
+-1.948718	1.225563e-02
+-1.743590	1.789790e-02
+-1.538462	2.506079e-02
+-1.333333	3.364442e-02
+-1.128205	4.330694e-02
+-0.923077	5.344755e-02
+-0.717949	6.324468e-02
+-0.512821	7.175402e-02
+-0.307692	7.805385e-02
+-0.102564	8.140824e-02
+0.102564	8.140824e-02
+0.307692	7.805385e-02
+0.512821	7.175402e-02
+0.717949	6.324468e-02
+0.923077	5.344755e-02
+1.128205	4.330694e-02
+1.333333	3.364442e-02
+1.538462	2.506079e-02
+1.743590	1.789790e-02
+1.948718	1.225563e-02
+2.153846	8.046278e-03
+2.358974	5.065011e-03
+2.564103	3.056973e-03
+2.769231	1.769004e-03
+2.974359	9.815038e-04
+3.179487	5.221329e-04
+3.384615	2.663153e-04
+3.589744	1.302378e-04
+3.794872	6.106663e-05
+4.000000	2.745344e-05
+
+Discrete Latent Variable Distribution for Group 2
+-4.699982	2.745344e-05
+-4.480500	6.106663e-05
+-4.261018	1.302378e-04
+-4.041536	2.663153e-04
+-3.822054	5.221329e-04
+-3.602572	9.815038e-04
+-3.383090	1.769004e-03
+-3.163608	3.056973e-03
+-2.944126	5.065011e-03
+-2.724644	8.046278e-03
+-2.505162	1.225563e-02
+-2.285680	1.789790e-02
+-2.066198	2.506079e-02
+-1.846716	3.364442e-02
+-1.627234	4.330694e-02
+-1.407752	5.344755e-02
+-1.188270	6.324468e-02
+-0.968788	7.175402e-02
+-0.749306	7.805385e-02
+-0.529824	8.140824e-02
+-0.310342	8.140824e-02
+-0.090860	7.805385e-02
+0.128622	7.175402e-02
+0.348104	6.324468e-02
+0.567586	5.344755e-02
+0.787068	4.330694e-02
+1.006550	3.364442e-02
+1.226032	2.506079e-02
+1.445513	1.789790e-02
+1.664995	1.225563e-02
+1.884477	8.046278e-03
+2.103959	5.065011e-03
+2.323441	3.056973e-03
+2.542923	1.769004e-03
+2.762405	9.815038e-04
+2.981887	5.221329e-04
+3.201369	2.663153e-04
+3.420851	1.302378e-04
+3.640333	6.106663e-05
+3.859815	2.745344e-05
+
+Moments of Latent Variable Distributions (group 1, 2, etc)
+Mean:	0.000000	-0.420083
+s.d.:	0.999646	1.069596
+

@@ -1,0 +1,7 @@
+# open folder
+cd icl_linux
+
+# run executable
+./iclsh
+
+# copy the .tcl lines

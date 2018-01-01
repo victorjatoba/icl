@@ -1,0 +1,137 @@
+IRT Command Language (ICL)
+Version 0.020301
+
+Feb 28, 2002 23:41
+
+Command file mondaty_poly.tcl
+----------------------------------------------------------------------
+#
+# mondaty_poly.tcl
+#
+# Estimate parameters for 36 dichotomous items
+# modeled using the three-parameter logistic (3PL) model,
+# and four polytomous items modeled using the
+# generalized partial credit model (GPCM) using
+# data simulated by polysim.tcl.
+
+# Name of file containing item responses
+set resp_file sim_resp.dat
+
+# Write output to mondaty_poly.log
+output -log_file mondaty_poly.log
+
+# Create list giving model to use for each item.
+# The first 36 items are dichotomous items modeled
+# using the three-parameter logistic model, and the last four items
+# are 4 category polytomous items modeled by
+# the generalized partial credit model.
+# The variable 'model' is a list containing
+# 36 1's followed by four 4's.
+set model [concat [rep 1 36] [rep 4 4]]
+
+# 40 items to be modeled
+allocate_items_dist 40 -models $model
+
+# Read examinee item responses.
+# Responses to items are at the beginning
+# of each record
+read_examinees $resp_file 40i1
+
+# Compute starting values for 3PL items
+starting_values_dichotomous
+
+# Perform EM iterations for computing item parameter estimates.
+EM_steps
+
+# Print item parameter estimates
+print -item_param
+
+# end of run
+release_items_dist
+----------------------------------------------------------------------
+
+Number of items: 40
+Number of latent variable points: 40
+Number of examinee groups: 1
+
+Default prior for a-parameters:
+ beta  a: 1.750   b: 3.000   lower limit: 0.000    upper limit: 3.000  
+Default prior for b-parameters:
+ beta  a: 1.010   b: 1.010   lower limit: -6.000   upper limit: 6.000  
+Default prior for c-parameters:
+ beta  a: 3.500   b: 4.000   lower limit: 0.000    upper limit: 0.500  
+
+Read 2000 examinee records from file sim_resp.dat
+
+EM iterations
+(iteration: parameter criterion, marginal posterior mode)
+    1: 1.000000  -49839.8854
+    2: 0.156021  -49813.0236
+    3: 0.050711  -49806.9268
+    4: 0.020425  -49804.6537
+    5: 0.013235  -49803.4438
+    6: 0.009502  -49802.6581
+    7: 0.007414  -49802.0978
+    8: 0.006466  -49801.6785
+    9: 0.005663  -49801.3557
+   10: 0.004977  -49801.1018
+   11: 0.004392  -49800.8988
+   12: 0.003877  -49800.7345
+   13: 0.003436  -49800.6002
+   14: 0.003056  -49800.4897
+   15: 0.002729  -49800.3982
+   16: 0.002457  -49800.3222
+   17: 0.002216  -49800.2589
+   18: 0.002002  -49800.2061
+   19: 0.001813  -49800.1619
+   20: 0.001644  -49800.1250
+   21: 0.001493  -49800.0941
+   22: 0.001360  -49800.0682
+   23: 0.001241  -49800.0466
+   24: 0.001133  -49800.0284
+   25: 0.001035  -49800.0133
+   26: 0.000945  -49800.0005
+
+Item Parameter Estimates
+(a, b, c for 3PL, 2PL, 1PL; a, b1, b2, ... for GPCM, PCM)
+1	0.784632	-1.494295	0.216542
+2	0.509761	-0.213177	0.174918
+3	0.480782	-1.230036	0.171035
+4	0.556064	-0.634404	0.230179
+5	0.660246	-1.424265	0.235329
+6	0.717690	-0.881038	0.313296
+7	1.232697	0.008603	0.273957
+8	0.406700	0.248871	0.275591
+9	0.685756	-0.508994	0.191637
+10	0.975991	-0.317898	0.202043
+11	1.238413	-0.657687	0.183721
+12	0.716615	-0.189311	0.144466
+13	0.827056	0.107852	0.184588
+14	0.708840	-0.244146	0.114232
+15	1.148081	0.551510	0.320706
+16	0.849328	0.653557	0.269533
+17	0.552343	0.959053	0.214288
+18	0.900992	-0.033334	0.101448
+19	1.004164	-0.117059	0.207532
+20	0.848080	0.364010	0.150887
+21	0.336177	2.703949	0.226385
+22	0.894207	0.021954	0.183050
+23	1.215446	0.505058	0.270023
+24	1.320996	0.530310	0.210530
+25	1.394385	0.597443	0.247531
+26	1.010578	0.361881	0.208454
+27	1.342652	0.967083	0.207249
+28	1.310263	1.108302	0.230058
+29	1.163402	0.789757	0.153663
+30	0.851033	1.626691	0.095071
+31	1.229428	1.410455	0.205899
+32	0.938290	0.960744	0.107012
+33	1.200863	1.030150	0.057851
+34	1.460793	1.711502	0.113126
+35	1.294422	1.889917	0.094107
+36	0.867795	2.252590	0.134263
+37	0.918482	0.695774	-0.096936	1.064804
+38	0.755907	-1.959096	-0.031002	2.069068
+39	0.486778	0.116498	-0.528472	-0.930240
+40	1.469481	-1.098740	0.584653	-0.002246
+

@@ -1,0 +1,31 @@
+Release Notes for IRT Command Language (ICL)
+http://www.b-a-h.com/software/irt/icl/
+
+After each item in brackets are the source files in which the change
+was implemented. In some cases the source file that was changed is
+part of ETIRM (http://www.b-a-h.com/software/cpp/etirm.html).
+
+
+Release 0.020301
+
+This is the initial release of ICL. ICL supercedes the Estimation Program for
+Dichotomous Item Response Models (EPDIRM) by including estimation of models
+for polytomous as well as dichotomous items. Some differences between
+ICL and EPDIRM are described on the page 
+http://www.b-a-h.com/software/irt/icl/epdirm_differences.html.
+
+ICL fixes some bugs that existed in version 0.011118 of EPDIRM:
+
+	Fixed a bug in read_examinee_missing command that prevented the command
+	from working when the optional fifth and sixth arguments were used.
+	[icl.tcl]
+
+	Fixed a bug in the item_set_model command which caused the command 
+	to not work and possibly crash the program. [swig_icl.cpp]
+
+	Fixed a bug in the simulate_responses command
+	that produced an error when simulate_responses was called.
+	[swig_etirm.h, swig_etirm.cpp]
+	
+	Fixed a bug in which the examinee counts in each group were not
+	updated in bootstrap_sample. [swig_etirm.h, swig_etirm.cpp]
