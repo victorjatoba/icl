@@ -16,10 +16,10 @@ output -no_print
 # 45 items to be modeled
 allocate_items_dist 45
 
-# Read examinee item responses from file enem.dat.
-# Each record contains the responses to 
+# Read examinee item responses from file mondaty.dat.
+# Each record contains the responses to
 # 45 items for an examinee in columns 1-45.
-read_examinees enem_2014.dat {@1 45i1}
+read_examinees enem_2014.dat 45i1
 
 # Read previously computed item parameter estimates
 read_item_param enem_math.par

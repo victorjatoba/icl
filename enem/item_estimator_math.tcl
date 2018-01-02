@@ -19,7 +19,7 @@ allocate_items_dist 45
 # Read examinee item responses from file mondaty.dat.
 # Each record contains the responses to
 # 45 items for an examinee.
-read_examinees enem_2014.dat {@1 45i1}
+read_examinees enem_2014.dat 45i1
 
 # Compute starting values for item parameter estimates
 starting_values_dichotomous
