@@ -19,7 +19,8 @@ allocate_items_dist 45
 # Read examinee item responses from file mondaty.dat.
 # Each record contains the responses to
 # 45 items for an examinee in columns 1-45.
-read_examinees enem_2014.dat 45i1
+#read_examinees enem_2014.dat 45i1
+read_examinees 2012_enem_sample.dat 45i1
 
 # Read previously computed item parameter estimates
 read_item_param enem_math.par
