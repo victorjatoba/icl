@@ -1,5 +1,5 @@
 #
-# item_estimator.tcl
+# theta_estimator.tcl
 #
 # Estimate examinees theta hability
 # using data from an 1 Milion ENEM 2012 sample.
