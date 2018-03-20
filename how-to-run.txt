@@ -1,5 +1,5 @@
 # open folder
-cd icl_linux
+cd icl/
 
 # run executable
 ./iclsh
