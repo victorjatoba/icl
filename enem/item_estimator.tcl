@@ -2,25 +2,24 @@
 # item_estimator.tcl
 #
 # Estimate item parameters from only Enem Math items
-# using data from an ENEM sample.
+# using data from an 1 Milion ENEM sample.
 #
 # Author: 	Victor Jatoba
-# Date:		10/12/17 mm/dd/yy
+# Date:		03/19/18 dd/mm/yy
 
 #Go to folder location
 cd enem
 
-# Write output to log file mondaty.out
-output -log_file enem_math.log
+# Write output to log file enem.out
+output -log_file 2012-enem.log
 
 # 45 items to be modeled
 allocate_items_dist 45
 
-# Read examinee item responses from file mondaty.dat.
+# Read examinee item responses from file 2012-enem-responses-1M.dat
 # Each record contains the responses to
 # 45 items for an examinee.
-#read_examinees enem_2014.dat 45i1
-read_examinees 2012_enem_sample.dat 45i1
+read_examinees 2012-enem-responses-1M.dat 45i1
 
 # Compute starting values for item parameter estimates
 starting_values_dichotomous
@@ -37,7 +36,7 @@ print -item_param -latent_dist -latent_dist_moments
 # Write parameter estimates with 8 digits after
 # the decimal point
 # write_item_param enem.par       -format %.8f   <- NOT RECOGNIZED
-write_item_param enem_math.par
+write_item_param 2012-enem.par
 
 # end of run
 release_items_dist
