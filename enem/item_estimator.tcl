@@ -34,7 +34,7 @@ allocate_items_dist 45
 # Read examinee item responses from file 2012-enem-responses-1M.dat
 # Each record contains the responses to
 # 45 items for an examinee.
-read_examinees 2012-enem-responses-1M.dat 45i1
+read_examinees 2012-enem-responses-700k.dat 45i1
 
 # Compute starting values for item parameter estimates
 starting_values_dichotomous
@@ -51,7 +51,7 @@ print -item_param -latent_dist -latent_dist_moments
 # Write parameter estimates with 8 digits after
 # the decimal point
 # write_item_param enem.par       -format %.8f   <- NOT RECOGNIZED
-write_item_param 2012-enem-bilog.par
+write_item_param 2012-enem-700k.par
 
 # end of run
 release_items_dist

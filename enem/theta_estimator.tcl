@@ -37,10 +37,10 @@ allocate_items_dist 45
 # Read examinee item responses from file 2012-enem-responses-1M.dat.
 # Each record contains the responses to
 # 45 items for an examinee in columns 1-45.
-read_examinees 2012-enem-responses-1M.dat 45i1
+read_examinees 2012-enem-responses-700k.dat 45i1
 
 # Read previously computed item parameter estimates
-read_item_param enem-spenassato.par
+read_item_param 2012-enem-700k.par
 
 # Create E-step object needed to compute
 # posterior latent variable distributions for
