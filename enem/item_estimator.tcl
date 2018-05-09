@@ -10,6 +10,21 @@
 #Go to folder location
 cd enem
 
+### Specify prior distributions used by default in BILOG
+
+# Lognormal prior for a-parameters with mean 0 and standard
+# deviation 0.5 in the underlying normal distribution
+options -default_prior_a {lognormal 0.0 0.5}
+
+# No prior for b-parameters
+options -default_prior_b none
+
+# Two-parameter beta prior is used by BILOG for the
+# c-parameters when the number of response options is 4.
+options -default_prior_c {beta 6.0 16.0 0.0 1.0}
+
+###
+
 # Write output to log file enem.out
 output -log_file 2012-enem.log
 
@@ -36,7 +51,7 @@ print -item_param -latent_dist -latent_dist_moments
 # Write parameter estimates with 8 digits after
 # the decimal point
 # write_item_param enem.par       -format %.8f   <- NOT RECOGNIZED
-write_item_param 2012-enem.par
+write_item_param 2012-enem-bilog.par
 
 # end of run
 release_items_dist

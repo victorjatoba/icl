@@ -10,6 +10,24 @@
 #Go to folder location
 cd enem
 
+
+### Specify prior distributions used by default in BILOG
+
+# Lognormal prior for a-parameters with mean 0 and standard
+# deviation 0.5 in the underlying normal distribution
+options -default_prior_a {lognormal 0.0 0.5}
+
+# No prior for b-parameters
+options -default_prior_b none
+
+# Two-parameter beta prior is used by BILOG for the
+# c-parameters when the number of response options is 4.
+options -default_prior_c {beta 6.0 16.0 0.0 1.0}
+
+###
+
+
+
 # Supress written output from subsequent ICL commands
 output -no_print
 
@@ -22,7 +40,7 @@ allocate_items_dist 45
 read_examinees 2012-enem-responses-1M.dat 45i1
 
 # Read previously computed item parameter estimates
-read_item_param enem.par
+read_item_param enem-spenassato.par
 
 # Create E-step object needed to compute
 # posterior latent variable distributions for
