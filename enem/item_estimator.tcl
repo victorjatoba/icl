@@ -23,10 +23,18 @@ options -default_prior_b none
 # c-parameters when the number of response options is 4.
 options -default_prior_c {beta 6.0 16.0 0.0 1.0}
 
+
+
+options -D 1.7
+options -default_prior_a {beta 1.01 1.01 -6.0 6.0}
+options -default_prior_b none
+options -default_prior_c {beta 2 4 0 1}
+
+
 ###
 
 # Write output to log file enem.out
-output -log_file 2012-enem.log
+output -log_file 3-2012-enem.log
 
 # 45 items to be modeled
 allocate_items_dist 45
@@ -51,7 +59,7 @@ print -item_param -latent_dist -latent_dist_moments
 # Write parameter estimates with 8 digits after
 # the decimal point
 # write_item_param enem.par       -format %.8f   <- NOT RECOGNIZED
-write_item_param 2012-enem-700k.par
+write_item_param 3-2012-enem-700k.par
 
 # end of run
 release_items_dist
